@@ -10,7 +10,16 @@
 
     <dubbo:registry address="zookeeper://127.0.0.1:2181"></dubbo:registry>
 
-    <!--声明需要调用的远程服务的接口,生成远程服务代理-->
-    <dubbo:reference interface="org.lhyf.gamll.service.UserService" id ="userService"></dubbo:reference>
+    <!--声明需要调用的远程服务的接口,生成远程服务代理 check="false" : 服务启动时不检查-->
+    <!--timeout="0" 超时单位:ms-->
+    <dubbo:reference interface="org.lhyf.gamll.service.UserService" id ="userService" timeout="1500" >
+        <!--针对接口中具体的方法进行配置-->
+        <dubbo:method name="getUserAddress" timeout="2100"></dubbo:method>
+    </dubbo:reference>
+
+    <!--配置当前消费者的统一规则: 所有的服务都不做启动检查-->
+    <dubbo:consumer check="false" timeout="2000"></dubbo:consumer>
+    <!--监控中心配置-->
+    <dubbo:monitor protocol="registry"></dubbo:monitor>
 
 </beans>

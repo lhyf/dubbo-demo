@@ -1,9 +1,9 @@
 package org.lhyf.gmall.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import org.lhyf.gamll.bean.UserAddress;
 import org.lhyf.gamll.service.OrderService;
 import org.lhyf.gamll.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,13 +17,15 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-	@Autowired
+//	@Autowired
+	@Reference // 使用dubbo 的注入
 	private UserService userService;
 
 	@Override
 	public List<UserAddress> initOrder(String userId) {
 		// 1. 查询用户的收货地址
 		List<UserAddress> address = userService.getUserAddress(userId);
+		System.out.println(address);
 		return address;
 	}
 

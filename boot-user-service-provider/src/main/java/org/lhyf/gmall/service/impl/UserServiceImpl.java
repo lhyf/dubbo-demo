@@ -1,13 +1,15 @@
 package org.lhyf.gmall.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import org.lhyf.gamll.bean.UserAddress;
 import org.lhyf.gamll.service.UserService;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-
+@Component
+@Service
 public class UserServiceImpl implements UserService {
 
     private static final List<UserAddress> list = new ArrayList<>();
@@ -21,11 +23,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserAddress> getUserAddress(String userId) {
         System.out.println("userId:" + userId);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return list;
     }
 
