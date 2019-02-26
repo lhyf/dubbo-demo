@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl2 implements UserService {
 
     private static final List<UserAddress> list = new ArrayList<>();
 
@@ -20,10 +19,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserAddress> getUserAddress(String userId) {
-        System.out.println("provider:old");
+        System.out.println("provider:new");
         System.out.println("userId:" + userId);
 //        try {
-//            Thread.sleep(3000);
+////            Thread.sleep(3000);
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }

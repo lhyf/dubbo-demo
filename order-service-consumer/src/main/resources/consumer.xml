@@ -11,8 +11,15 @@
     <dubbo:registry address="zookeeper://127.0.0.1:2181"></dubbo:registry>
 
     <!--声明需要调用的远程服务的接口,生成远程服务代理 check="false" : 服务启动时不检查-->
-    <!--timeout="0" 超时单位:ms-->
-    <dubbo:reference interface="org.lhyf.gamll.service.UserService" id ="userService" timeout="1500" >
+    <!--timeout="0" 超时单位:ms 默认1000ms-->
+    <!--
+        1.精确优先(方法级别优先,接口次之,全局配置再次之)
+        2.消费者设置优先(如果级别一样,消费方优先,提供方次之)
+    -->
+    <!--retries:重试次数,不包含第一次调用; 0表示不重试-->
+    <!--幂等[查询,删除,修改](设置重试次数) 非幂等[新增](不能设置重试次数)-->
+    <!--version:指定服务端接口的版本-->
+    <dubbo:reference interface="org.lhyf.gamll.service.UserService" id ="userService" timeout="1500" retries="3" version="1.0.0" stub="org.lhyf.gamll.service.UserServiceStub" >
         <!--针对接口中具体的方法进行配置-->
         <dubbo:method name="getUserAddress" timeout="2100"></dubbo:method>
     </dubbo:reference>

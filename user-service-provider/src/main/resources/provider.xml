@@ -11,13 +11,21 @@
     <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"></dubbo:registry>
 
     <!--3.指定通信规则(通信协议? 通信端口?)-->
-    <dubbo:protocol name="dubbo" port="20880"></dubbo:protocol>
+    <dubbo:protocol name="dubbo" port="20882"></dubbo:protocol>
 
     <!--4.暴露服务 ref:指向服务的真正实现对象-->
-    <dubbo:service interface="org.lhyf.gamll.service.UserService" ref="userService" />
+    <!--version: 实现灰度发布-->
+    <dubbo:service interface="org.lhyf.gamll.service.UserService" ref="userService01" version="1.0.0">
+        <dubbo:method name="getUserAddress" timeout="1000"  ></dubbo:method>
+    </dubbo:service>
+
+    <dubbo:service interface="org.lhyf.gamll.service.UserService" ref="userService02" version="2.0.0">
+    </dubbo:service>
 
     <!--服务实现对象-->
-    <bean id="userService" class="org.lhyf.gmall.service.impl.UserServiceImpl"/>
+    <bean id="userService01" class="org.lhyf.gmall.service.impl.UserServiceImpl"/>
+    <bean id="userService02" class="org.lhyf.gmall.service.impl.UserServiceImpl2"/>
+
 
     <!--连接监控中心配置-->
     <!--<dubbo:monitor protocol="registry"></dubbo:monitor>-->
