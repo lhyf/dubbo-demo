@@ -5,10 +5,11 @@ import org.lhyf.gamll.bean.UserAddress;
 import org.lhyf.gamll.service.UserService;
 import org.springframework.stereotype.Component;
 
+import javax.naming.Name;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Component(value = "userService")
 @Service
 public class UserServiceImpl implements UserService {
 
