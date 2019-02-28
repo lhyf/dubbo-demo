@@ -64,7 +64,7 @@ public class DubboConfig {
         return serviceConfig;
     }
 //  <dubbo:monitor protocol="registry"></dubbo:monitor>
-    @Bean
+//    @Bean
     public MonitorConfig monitorConfig(){
         MonitorConfig monitorConfig = new MonitorConfig();
         monitorConfig.setProtocol("registry");

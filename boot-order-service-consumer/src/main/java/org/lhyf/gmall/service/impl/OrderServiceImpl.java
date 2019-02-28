@@ -1,11 +1,13 @@
 package org.lhyf.gmall.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.lhyf.gamll.bean.UserAddress;
 import org.lhyf.gamll.service.OrderService;
 import org.lhyf.gamll.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -21,12 +23,18 @@ public class OrderServiceImpl implements OrderService {
 //    @Reference(url = "127.0.0.1:20880") // dubbo 直连
     private UserService userService;
 
+	@HystrixCommand(fallbackMethod = "errorHandler")
     @Override
     public List<UserAddress> initOrder(String userId) {
         // 1. 查询用户的收货地址
         List<UserAddress> address = userService.getUserAddress(userId);
         System.out.println(address);
         return address;
+    }
+
+    public List<UserAddress> errorHandler(String userId) {
+
+        return Arrays.asList(new UserAddress(10,"测试地址","测试","测试","测试","default"));
     }
 
 }
